@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.BitmapDrawable;
 import android.hardware.Camera;
 import android.os.Build;
 import android.os.Bundle;
@@ -45,13 +46,14 @@ public class CrimeFragment extends Fragment {
     private static final String DIALOG_DATE = "date";
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_PHOTO = 1;
+    private static final String DIALOG_IMAGE = "image";
 
     private Crime mCrime;
     private EditText mTitleField;
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
     private ImageButton mPhotoButton;
-    private ImageView mImageView;
+    private ImageView mPhotoView;
 
     public static CrimeFragment newInstance(UUID crimeId) {
         Bundle args = new Bundle();
@@ -145,13 +147,44 @@ public class CrimeFragment extends Fragment {
             mPhotoButton.setEnabled(false);
         }
 
-        mImageView = (ImageView)v.findViewById(R.id.crime_imageView);
+        mPhotoView = (ImageView)v.findViewById(R.id.crime_imageView);
+        mPhotoView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Photo p = mCrime.getPhoto();
+                if(p == null)
+                    return;
+
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                String path = getActivity()
+                        .getFileStreamPath(p.getFilename()).getAbsolutePath();
+                ImageFragment.newInstance(path).show(fm, DIALOG_IMAGE);
+            }
+        });
+
 
         return v;
 
     }
 
+    private void showPhoto() {
+        // 基于照片的尺寸，设置图像按钮
+        Photo p = mCrime.getPhoto();
+        BitmapDrawable b = null;
 
+        if(p != null) {
+            String path = getActivity()
+                    .getFileStreamPath(p.getFilename()).getAbsolutePath();
+            b = PictureUtils.getScaledDrawable(getActivity(), path);
+        }
+        mPhotoView.setImageDrawable(b);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // 显示图片
+        showPhoto();
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -161,14 +194,14 @@ public class CrimeFragment extends Fragment {
         if(requestCode == REQUEST_DATE) {
             Date date = (Date)data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mCrime.setDate(date);
-           updateDate();
+            updateDate();
         } else if (requestCode == REQUEST_PHOTO) {
             // 创建一个新的照片对象，并把他附加在crime上
             String filename = data.getStringExtra(CrimeCameraFragment.EXTRA_PHOTO_FILENAME);
             if(filename != null) {
-               Photo p = new Photo(filename);
+                Photo p = new Photo(filename);
                 mCrime.setPhoto(p);
-                Log.i(TAG, "Crime: " + mCrime.getTitle() + " has a photo");
+                showPhoto();
             }
         }
     }
@@ -193,4 +226,10 @@ public class CrimeFragment extends Fragment {
         CrimeLab.get(getActivity()).saveCrimes();
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        // 卸载图片
+        PictureUtils.cleanImageView(mPhotoView);
+    }
 }
