@@ -1,16 +1,25 @@
 <resources>
     <string name = "app_name">CriminalIntent</string>
-    <string name = "crime_title_hint">Enter a title for the crime.</string>
-    <string name = "crime_title_label">Title</string>
-    <string name = "crime_details_label">Details</string>
-    <string name = "crime_solved_label">Solved?</string>
+    <string name = "crime_title_hint">请输入标题事件</string>
+    <string name = "crime_title_label">标题</string>
+    <string name = "crime_details_label">详细信息</string>
+    <string name = "crime_solved_label">是否解决</string>
     <string name = "crimes_title">Crimes</string>
-    <string name = "date_picker_title">Date of crime:</string>
-    <string name = "new_crime">New Crime</string>
-    <string name = "show_subtitle">Show Subtitle</string>
-    <string name = "hide_subtitle">Hide Subtitle</string>
+    <string name = "date_picker_title">发生时间：</string>
+    <string name = "new_crime">新事件</string>
+    <string name = "show_subtitle">显示子标题</string>
+    <string name = "hide_subtitle">隐藏子标题</string>
     <string name = "subtitle">If you see something, say something.</string>
-    <string name = "delete_crime">Delete</string>
+    <string name = "delete_crime">删除</string>
     <string name = "action_settings">Setting</string>
     <string name = "take">拍个照吧</string>
+    <string name = "crime_suspect_text">选择联系人</string>
+    <string name = "crime_report_text">发送报告</string>
+    <string name = "crime_report">%1$s! 发现%2$s, %3$s, %4$s</string>
+    <string name = "crime_report_solved">事件已经解决了</string>
+    <string name = "crime_report_unsolved">事件还未解决</string>
+    <string name = "crime_report_no_suspect">未发生事件</string>
+    <string name = "crime_report_suspect">发生事件: %s</string>
+    <string name = "crime_report_subject">CriminalIntent 事件报告</string>
+    <string name = "send_report">发送事件报告</string>
 </resources>
