@@ -37,10 +37,11 @@ public class Crime
     // 第二个构造方法，重构了Crime()
     public Crime(JSONObject json) throws JSONException {
         mId = UUID.fromString(json.getString(JSON_ID));
-        if(json.has(JSON_TITLE))
-           mTitle = json.getString(JSON_TITLE);
         mSolved = json.getBoolean(JSON_SOLVED);
         mDate = new Date(json.getLong(JSON_DATE));
+
+        if(json.has(JSON_TITLE))
+            mTitle = json.getString(JSON_TITLE);
         if(json.has(JSON_PHOTO))
             mPhoto = new Photo(json.getJSONObject(JSON_PHOTO));
         if(json.has(JSON_SUSPECT))
@@ -59,9 +60,10 @@ public class Crime
         json.put(JSON_TITLE, mTitle);
         json.put(JSON_SOLVED, mSolved);
         json.put(JSON_DATE, mDate.getTime());
+        json.put(JSON_SUSPECT, mSuspect);
+
         if(mPhoto != null)
             json.put(JSON_PHOTO, mPhoto.toJSON());
-        json.put(JSON_SUSPECT, mSuspect);
 
         return json;
     }

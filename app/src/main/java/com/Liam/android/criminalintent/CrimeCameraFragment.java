@@ -79,7 +79,7 @@ public class CrimeCameraFragment extends Fragment {
 
     @Override
     @SuppressWarnings("deprecation")
-    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInsanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_crime_camera, parent, false);
 
         // 设置进度条视图，且设置为暂时不显示
