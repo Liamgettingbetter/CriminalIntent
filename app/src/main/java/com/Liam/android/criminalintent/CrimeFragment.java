@@ -39,11 +39,10 @@ import java.util.UUID;
  */
 
 /*
-    ¸ÃFragmentÊÇµ¥¶ÀÑ¡ÖĞCrimeÊ±ËùÊ¹ÓÃµÄ£¬ÓÃÀ´³ÊÏÖÒ»¸ö¶ÀÁ¢CrimeµÄÊÓÍ¼
+    ï¿½ï¿½Fragmentï¿½Çµï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½CrimeÊ±ï¿½ï¿½Ê¹ï¿½ÃµÄ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Crimeï¿½ï¿½ï¿½ï¿½Í¼
  */
 public class CrimeFragment extends Fragment {
 
-    private static final String TAG = "CrimeFragment";
     public static final String EXTRA_CRIME_ID =
             "com.Liam.android.criminalIntent.crime_id";
     private static final String DIALOG_DATE = "date";
@@ -60,6 +59,7 @@ public class CrimeFragment extends Fragment {
     private ImageView mPhotoView;
     private Button mSuspectButton;
 
+    // å®ç°ç±»æ–¹æ³• --- è¿”å›ä¸€ä¸ªæ–°çš„CrimeFragmentå®ä¾‹
     public static CrimeFragment newInstance(UUID crimeId) {
         Bundle args = new Bundle();
         args.putSerializable(EXTRA_CRIME_ID, crimeId);
@@ -71,6 +71,7 @@ public class CrimeFragment extends Fragment {
     }
 
     public void updateDate() {
+        // åœ¨æ—¥æœŸæŒ‰é’®ä¸Šè®¾ç½®mCrimeå¯¹è±¡å½“å‰çš„æ—¥æœŸ
         mDateButton.setText(mCrime.getDate().toString());
     }
 
@@ -95,6 +96,7 @@ public class CrimeFragment extends Fragment {
             }
         }
 
+        // äº‹ä»¶çš„æ ‡é¢˜æ ï¼Œä»¥åŠç›‘å¬æ ‡é¢˜æ–‡æœ¬å˜åŒ–äº‹ä»¶çš„ç›‘å¬å™¨
         mTitleField = (EditText)v.findViewById(R.id.crime_title);
         mTitleField.setText(mCrime.getTitle());
         mTitleField.addTextChangedListener(new TextWatcher() {
@@ -111,6 +113,7 @@ public class CrimeFragment extends Fragment {
             }
         });
 
+        // æ—¥æœŸæŒ‰é’®ï¼ŒåŠç›‘å¬æŒ‰é’®ç‚¹å‡»äº‹ä»¶çš„ç›‘å¬å™¨
         mDateButton = (Button)v.findViewById(R.id.crime_date);
         updateDate();
         mDateButton.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +124,7 @@ public class CrimeFragment extends Fragment {
                 dialog.show(fm, DIALOG_DATE);
             }
         });
+
 
         mSolvedCheckBox = (CheckBox)v.findViewById(R.id.crime_solved);
         mSolvedCheckBox.setChecked(mCrime.isSolved());
@@ -135,20 +139,21 @@ public class CrimeFragment extends Fragment {
         mPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //
+                // å½“ç‚¹å‡»è¯¥ImageButtonæ—¶ï¼Œä½¿ç”¨Intentè·³è½¬åˆ°CrimeCameraActivityç±»ä¸­
                 Intent i = new Intent(getActivity(), CrimeCameraActivity.class);
                 startActivityForResult(i, REQUEST_PHOTO);
             }
         });
 
-        // ÈôÓ²¼ş²»Ö§³ÖÏà»úÉè±¸£¬Ôò½ûÓÃÏà»ú¹¦ÄÜ
+        // ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½Ö§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         PackageManager pm = getActivity().getPackageManager();
-        // Ê¹ÓÃÒ»¸ö²¼¶ûÖµÀ´¼ÇÂ¼Ó²¼şÊÇ·ñÖ§³ÖÏà»ú¹¦ÄÜ£¬ÒÔ¼°Ö§³Ö¶àÉÙÏà»ú
+        // ä½¿ç”¨ä¸€ä¸ªbooleanå‚æ•°æ¥åˆ¤æ–­è¿è¡Œè¯¥APPçš„è®¾å¤‡æ˜¯å¦å…·æœ‰ç›¸æœºåŠŸèƒ½
         boolean hasACamera = pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) ||
                 pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT) ||
                 Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD ||
                 Camera.getNumberOfCameras() > 0;
         if(!hasACamera) {
+            // å¦‚æœç¡¬ä»¶ä¸æä¾›æ‘„åƒåŠŸèƒ½ï¼Œåˆ™ç¦ç”¨è¯¥ImageButton
             mPhotoButton.setEnabled(false);
         }
 
@@ -156,12 +161,12 @@ public class CrimeFragment extends Fragment {
         mPhotoView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Photo p = mCrime.getPhoto();
-                if(p == null)
+                if(p == null) {
                     return;
+                }
 
                 FragmentManager fm = getActivity().getSupportFragmentManager();
-                String path = getActivity()
-                        .getFileStreamPath(p.getFilename()).getAbsolutePath();
+                String path = getActivity().getFileStreamPath(p.getFilename()).getAbsolutePath();
                 ImageFragment.newInstance(path).show(fm, DIALOG_IMAGE);
             }
         });
@@ -193,11 +198,10 @@ public class CrimeFragment extends Fragment {
         }
 
         return v;
-
     }
 
     private void showPhoto() {
-        // »ùÓÚÕÕÆ¬µÄ³ß´ç£¬ÉèÖÃÍ¼Ïñ°´Å¥
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¬ï¿½Ä³ß´ç£¬ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½Å¥
         Photo p = mCrime.getPhoto();
         BitmapDrawable b = null;
 
@@ -212,13 +216,13 @@ public class CrimeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        // ÏÔÊ¾Í¼Æ¬
+        // ï¿½ï¿½Ê¾Í¼Æ¬
         showPhoto();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // ÈôÊÇ²»Õı³£·µ»Ø£¬½»³ö¿ØÖÆ
+        // ï¿½ï¿½ï¿½Ç²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if(resultCode != Activity.RESULT_OK)
             return;
         if(requestCode == REQUEST_DATE) {
@@ -226,7 +230,7 @@ public class CrimeFragment extends Fragment {
             mCrime.setDate(date);
             updateDate();
         } else if (requestCode == REQUEST_PHOTO) {
-            // ´´½¨Ò»¸öĞÂµÄÕÕÆ¬¶ÔÏó£¬²¢°ÑËû¸½¼ÓÔÚcrimeÉÏ
+            // ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½Æ¬ï¿½ï¿½ï¿½ó£¬²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½crimeï¿½ï¿½
             String filename = data.getStringExtra(CrimeCameraFragment.EXTRA_PHOTO_FILENAME);
             if(filename != null) {
                 Photo p = new Photo(filename);
@@ -236,22 +240,22 @@ public class CrimeFragment extends Fragment {
         } else if(requestCode == REQUEST_CONTACT) {
             Uri contactUri = data.getData();
 
-            // Ö¸¶¨ÄãÏëÒª¸Ã´Î·ÃÎÊ·µ»ØÖµµÄÓò
+            // Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½Ã´Î·ï¿½ï¿½Ê·ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½
             String[] queryFields = new String[] {
                     ContactsContract.Contacts.DISPLAY_NAME
             };
 
-            // Ö´ĞĞ·ÃÎÊ
+            // Ö´ï¿½Ğ·ï¿½ï¿½ï¿½
             Cursor c = getActivity().getContentResolver()
                     .query(contactUri, queryFields, null, null, null);
 
-            // Á½´Î¼ì²é--È·¶¨µÃµ½ÁË·µ»ØÖµ
+            // ï¿½ï¿½ï¿½Î¼ï¿½ï¿½--È·ï¿½ï¿½ï¿½Ãµï¿½ï¿½Ë·ï¿½ï¿½ï¿½Öµ
             if(c.getCount() == 0) {
                 c.close();
                 return;
             }
 
-            // ÍÆËÍÊı¾İµÄÊ×ÁĞ£¬ÄÇÊÇÁªÏµÈËµÄÃû×Ö
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İµï¿½ï¿½ï¿½ï¿½Ğ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½
             c.moveToFirst();
             String suspect = c.getString(0);
             mCrime.setSuspect(suspect);
@@ -276,21 +280,21 @@ public class CrimeFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        // ±£´æCrime
+        // ï¿½ï¿½ï¿½ï¿½Crime
         CrimeLab.get(getActivity()).saveCrimes();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        // Ğ¶ÔØÍ¼Æ¬
+        // Ğ¶ï¿½ï¿½Í¼Æ¬
         PictureUtils.cleanImageView(mPhotoView);
     }
 
     private String getCrimeReport() {
         String solvedString = null;
 
-        // ¸ù¾İÓÃ»§ÊÇ·ñ¹´Ñ¡"½â¾ö"À´È·¶¨solvedString
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½Ç·ï¿½Ñ¡"ï¿½ï¿½ï¿½"ï¿½ï¿½È·ï¿½ï¿½solvedString
         if(mCrime.isSolved()) {
             solvedString = getString(R.string.crime_report_solved);
         } else {

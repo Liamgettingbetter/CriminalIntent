@@ -8,20 +8,20 @@ import android.view.WindowManager;
 /**
  * Created by Administrator on 2015/6/24.
  */
-public class CrimeCameraActivity extends SingleFragmentActivity
-{
+public class CrimeCameraActivity extends SingleFragmentActivity {
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        // Òþ²Ø±êÌâ´°¿Ú
+        // ï¿½ï¿½ï¿½Ø±ï¿½ï¿½â´°ï¿½ï¿½
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        // Òþ²Ø×´Ì¬À¸ºÍÆäËû²Ù×÷ÏµÍ³²ãµÄchrome
+        // ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½chrome
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         super.onCreate(savedInstanceState);
     }
+
     @Override
-    protected Fragment createFragment()
-    {
+    protected Fragment createFragment() {
         return new CrimeCameraFragment();
     }
 

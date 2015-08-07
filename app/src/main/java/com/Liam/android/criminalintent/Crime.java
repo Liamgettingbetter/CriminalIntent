@@ -10,15 +10,13 @@ import java.util.UUID;
 /**
  * Created by Administrator on 2015/5/22.
  */
-public class Crime
-{
+public class Crime {
     private static final String JSON_ID = "id";
     private static final String JSON_TITLE = "title";
     private static final String JSON_SOLVED = "solved";
     private static final String JSON_DATE = "date";
     private static final String JSON_PHOTO = "photo";
     private static final String JSON_SUSPECT = "suspect";
-
 
     private UUID mId;
     private String mTitle;
@@ -29,12 +27,12 @@ public class Crime
     private boolean mSolved;
 
     public Crime() {
-        // ´Ë´¦Éú³ÉÎ¨Ò»±êÊ¶·û
+        // ï¿½Ë´ï¿½ï¿½ï¿½ï¿½ï¿½Î¨Ò»ï¿½ï¿½Ê¶ï¿½ï¿½
         mId = UUID.randomUUID();
         mDate = new Date();
     }
 
-    // µÚ¶þ¸ö¹¹Ôì·½·¨£¬ÖØ¹¹ÁËCrime()
+    // ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì·½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¹ï¿½ï¿½ï¿½Crime()
     public Crime(JSONObject json) throws JSONException {
         mId = UUID.fromString(json.getString(JSON_ID));
         mSolved = json.getBoolean(JSON_SOLVED);
@@ -49,9 +47,9 @@ public class Crime
     }
 
     /*
-        ÏÂÃæ¶¨ÒåµÄ·½·¨
-        ½«CrimeÀàÖÐµÄ4¸öÓò£¬Í¨¹ý´ò°ü³É¼üÖµ¶Ô£¬×ª»»³ÉJSONObjectµÄ¶ÔÏóÊý¾Ý
-        ´æ·Å½øjsonÖÐ£¬ÊµÏÖÊý¾ÝµÄ·â×°¡£
+        ï¿½ï¿½ï¿½æ¶¨ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
+        ï¿½ï¿½Crimeï¿½ï¿½ï¿½Ðµï¿½4ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¼ï¿½Öµï¿½Ô£ï¿½×ªï¿½ï¿½ï¿½ï¿½JSONObjectï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        ï¿½ï¿½Å½ï¿½jsonï¿½Ð£ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ÝµÄ·ï¿½×°ï¿½ï¿½
      */
     public JSONObject toJSON() throws JSONException {
         JSONObject json = new JSONObject();

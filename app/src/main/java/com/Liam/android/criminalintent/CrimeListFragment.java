@@ -29,7 +29,6 @@ public class CrimeListFragment extends ListFragment
 {
     private ArrayList<Crime> mCrimes;
     private boolean mSubtitleVisible;
-    //private static final String TAG = "CrimeListFragment";
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -70,7 +69,7 @@ public class CrimeListFragment extends ListFragment
         }
         else
         {
-            //设置ListView选择模式为多选模式
+            //锟斤拷锟斤拷ListView选锟斤拷模式为锟斤拷选模式
             listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
             listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener()
             {
@@ -138,7 +137,6 @@ public class CrimeListFragment extends ListFragment
     {
         //get the crime from the adapter
         Crime c = ((CrimeAdapter)getListAdapter()).getItem(position);
-        //Log.d(TAG, c.getTitle() + " was clicked.");
 
         //start CrimePagerActivity with this crime
         Intent i = new Intent(getActivity(), CrimePagerActivity.class);

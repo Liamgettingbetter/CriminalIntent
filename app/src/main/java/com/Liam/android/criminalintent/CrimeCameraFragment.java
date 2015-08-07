@@ -35,16 +35,16 @@ public class CrimeCameraFragment extends Fragment {
 
     private Camera.ShutterCallback mShutterCallback = new Camera.ShutterCallback() {
         public void onShutter() {
-            // ÏÔÊ¾½ø¶ÈÖ¸Ê¾Ìõ
+            // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ö¸Ê¾ï¿½ï¿½
             mProgressContainer.setVisibility(View.VISIBLE);
         }
     };
 
     private Camera.PictureCallback mJpegCallback = new Camera.PictureCallback() {
         public void onPictureTaken(byte[] data, Camera camera) {
-            // ´´½¨ÎÄ¼þÃû
+            // ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
             String filename = UUID.randomUUID().toString() + ".jpg";
-            // ±£´æJPEGÊý¾Ýµ½´ÅÅÌ
+            // ï¿½ï¿½ï¿½ï¿½JPEGï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½ï¿½ï¿½
             FileOutputStream os = null;
             boolean success = true;
 
@@ -52,19 +52,19 @@ public class CrimeCameraFragment extends Fragment {
                 os = getActivity().openFileOutput(filename, Context.MODE_PRIVATE);
                 os.write(data);
             } catch (Exception e) {
-                Log.e(TAG, "Ð´ÎÄ¼þ´íÎó " + filename, e);
+                Log.e(TAG, "Ð´ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ " + filename, e);
                 success = false;
             } finally {
                 try {
                     if(os != null)
                         os.close();
                 } catch (Exception e) {
-                    Log.e(TAG, "´íÎó£ºÎÞ·¨¹Ø±ÕÎÄ¼þ " + filename, e);
+                    Log.e(TAG, "ï¿½ï¿½ï¿½ï¿½ï¿½Þ·ï¿½ï¿½Ø±ï¿½ï¿½Ä¼ï¿½ " + filename, e);
                     success = false;
                 }
             }
 
-            // °ÑÕÕÆ¬ÎÄ¼þÃû·ÅÈëresult_intentÖÐ
+            // ï¿½ï¿½ï¿½ï¿½Æ¬ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½result_intentï¿½ï¿½
             if(success) {
                Intent i = new Intent();
                 i.putExtra(EXTRA_PHOTO_FILENAME, filename);
@@ -82,7 +82,7 @@ public class CrimeCameraFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_crime_camera, parent, false);
 
-        // ÉèÖÃ½ø¶ÈÌõÊÓÍ¼£¬ÇÒÉèÖÃÎªÔÝÊ±²»ÏÔÊ¾
+        // ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ê¾
         mProgressContainer = v.findViewById(R.id.crime_camera_progressContainer);
         mProgressContainer.setVisibility(View.INVISIBLE);
 
@@ -98,25 +98,25 @@ public class CrimeCameraFragment extends Fragment {
         mSurfaceView = (SurfaceView)v.findViewById(R.id.crime_camera_surfaceView);
         SurfaceHolder holder = mSurfaceView.getHolder();
         /*
-            setType() ºÍ SURFACE_TYPE_PUSH_BUFFERS ¶¼ÊÇ±»ÆúÓÃµÄ²ÎÊý£¬µ«ÔÚÒ»Ð©
-            3.0°æ±¾Ö®Ç°µÄÉè±¸ÉÏÐèÒªËûÃÇÀ´ÊµÏÖÏà»úÔ¤ÀÀ
+            setType() ï¿½ï¿½ SURFACE_TYPE_PUSH_BUFFERS ï¿½ï¿½ï¿½Ç±ï¿½ï¿½ï¿½ï¿½ÃµÄ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ð©
+            3.0ï¿½æ±¾Ö®Ç°ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½
          */
         holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
-        // ÎªsurfaceHolderÌí¼Ó»Øµ÷º¯Êý
+        // ÎªsurfaceHolderï¿½ï¿½Ó»Øµï¿½ï¿½ï¿½ï¿½ï¿½
         holder.addCallback(new SurfaceHolder.Callback() {
             public void surfaceCreated(SurfaceHolder holder) {
-                // ÈÃÏà»úÊ¹ÓÃSurfaceÌî³äËüµÄÔ¤ÀÀ½çÃæ
+                // ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½Surfaceï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 try {
                     if(mCamera != null)
                         mCamera.setPreviewDisplay(holder);
                 } catch (IOException exception) {
-                    Log.e(TAG, "´íÎó£ºÉèÖÃÔ¤ÀÀÏÔÊ¾", exception);
+                    Log.e(TAG, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½Ê¾", exception);
                 }
             }
 
             public void surfaceDestroyed(SurfaceHolder holder) {
-                // ÏÖÔÚ²»ÄÜÔÚÕâ¸ösurfaceÉÏÏÔÊ¾ÁË£¬Í£Ö¹Ô¤ÀÀ
+                // ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½surfaceï¿½ï¿½ï¿½ï¿½Ê¾ï¿½Ë£ï¿½Í£Ö¹Ô¤ï¿½ï¿½
                 if(mCamera != null)
                     mCamera.stopPreview();
             }
@@ -125,12 +125,12 @@ public class CrimeCameraFragment extends Fragment {
                 if(mCamera == null)
                     return;
 
-                // surface¸Ä±äÁË³ß´ç£¬¸üÐÂsurfaceµÄÔ¤ÀÀ³ß´ç
+                // surfaceï¿½Ä±ï¿½ï¿½Ë³ß´ç£¬ï¿½ï¿½ï¿½ï¿½surfaceï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ß´ï¿½
                 Camera.Parameters parameters = mCamera.getParameters();
                 Camera.Size s = getBestSupportedSize(parameters.getSupportedPreviewSizes(), w, h);
-                // ÉèÖÃÔ¤ÀÀSize
+                // ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½Size
                 parameters.setPreviewSize(s.width, s.height);
-                // »ñµÃÊÊÓÃÓÚSurfaceµÄÍ¼Æ¬³ß´ç£¬½«»ñµÃµÄ³ß´çÉèÖÃÎªÏà»ú½«´´½¨µÄÍ¼Æ¬³ß´ç
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Surfaceï¿½ï¿½Í¼Æ¬ï¿½ß´ç£¬ï¿½ï¿½ï¿½ï¿½ÃµÄ³ß´ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ß´ï¿½
                 s = getBestSupportedSize(parameters.getSupportedPictureSizes(), w, h);
                 parameters.setPictureSize(s.width, s.height);
                 mCamera.setParameters(parameters);
@@ -138,7 +138,7 @@ public class CrimeCameraFragment extends Fragment {
                 try {
                     mCamera.startPreview();
                 } catch (Exception e) {
-                    Log.e(TAG, "´íÎó£º²»ÄÜ¿ªÆôÔ¤ÀÀ", e);
+                    Log.e(TAG, "ï¿½ï¿½ï¿½ó£º²ï¿½ï¿½Ü¿ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½", e);
                     mCamera.release();
                     mCamera = null;
                 }
@@ -162,7 +162,7 @@ public class CrimeCameraFragment extends Fragment {
     public void onPause() {
         super.onPause();
 
-        // µ±FragmentÔÝÍ££¬ÊÍ·ÅÏà»ú×ÊÔ´
+        // ï¿½ï¿½Fragmentï¿½ï¿½Í£ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´
         if(mCamera != null) {
             mCamera.release();
             mCamera = null;
@@ -171,7 +171,7 @@ public class CrimeCameraFragment extends Fragment {
 
 
     /**
-     * Ò»¸öÓÃÀ´µÃµ½×î´ó¿ÉÓÃ³ß´çµÄËã·¨¡£
+     * Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã³ß´ï¿½ï¿½ï¿½ã·¨ï¿½ï¿½
      */
     private Camera.Size getBestSupportedSize(List<Camera.Size> sizes, int width, int height) {
         Camera.Size bestSize = sizes.get(0);

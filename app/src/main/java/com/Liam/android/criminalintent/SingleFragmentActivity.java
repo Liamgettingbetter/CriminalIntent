@@ -8,8 +8,7 @@ import android.support.v4.app.FragmentManager;
 /**
  * Created by Administrator on 2015/5/29.
  */
-public abstract class SingleFragmentActivity extends FragmentActivity
-{
+public abstract class SingleFragmentActivity extends FragmentActivity {
     protected abstract Fragment createFragment();
 
     protected int getLayoutResId() {
